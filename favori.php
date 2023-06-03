@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="description" content="site de vente de livres">
   <meta name="keywords" content="vente de livres">
-  <link rel="shortcut icon" href="assets/livre1.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="images/livre1.jpg" type="image/x-icon">
   <link rel="stylesheet" href="css/nav.css" />
   <title>Favori | FahemBooks</title>
 </head>

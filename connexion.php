@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="description" content="site de vente de livres">
   <meta name="keywords" content="vente de livres">
-  <link rel="shortcut icon" href="images/livre3.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="images/livre1.jpg" type="image/x-icon">
   <title>Connexion | FahemBooks</title>
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
