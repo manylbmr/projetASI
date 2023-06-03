@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@300&display=swap");
+footer {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html footer {
+  height: 100%;
+}
+
+body footer {
+  font-family: "Open Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer {
+  background-color: #414141;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 28px;
+  margin-top: 116px;
+}
+
+footer li {
+  list-style: none;
+  margin: 10px;
+  display: inline-block;
+}
+
+.icons a {
+  background: #52527a;
+  color: #272727;
+  padding: 14px;
+  font-size: 20px;
+  border-radius: 100%;
+  display: flex;
+}
+.icons a:hover {
+  color: #ffffff;
+  transition: 0.5s;
+}
+
+.menu a {
+  color: #ffffff;
+  text-transform: capitalize;
+}
+.menu a:hover {
+  color: #52527a;
+  transition: 0.5s;
+}
+
+.footer-copyright {
+  background-color: #ffc59b;
+  color: #ffffff;
+  padding: 15px;
+  margin-top: 30px;
+  text-transform: capitalize;
+}
+
+.footer-copyright p {
+  margin-bottom: 0px;
+}
