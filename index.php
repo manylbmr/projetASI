@@ -19,7 +19,7 @@
   ?>
   <main>
     <section>
-      <h2>Livres à la une</h2>
+      <h2>Meubles à la une</h2>
       <p>Voici les derniers livres ajoutés à notre site :</p>
       <ul class="amazon">
         <?php

@@ -34,7 +34,7 @@
     <h2>Publier une annonce</h2>
         <form method="POST" action="">
             <fieldset>
-                <label for="titre">Titre du livr</label><br >
+                <label for="titre">Titre du livre</label><br >
                 <input type="text" placeholder="text" id="titre" name="titre" /><br >
                 <label for="auteur">Auteur</label><br >
                 <input type="text" placeholder="text" id="auteur" name="auteur" /><br >
