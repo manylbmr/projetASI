@@ -25,16 +25,18 @@
   </head>
   <body>
     <?php 
-      ini_set('session.gc_maxlifetime', 3600);
+       //Cette fonction ini_set() est utilisée pour modifier la configuration des sessions PHP.
 
-      ini_set('session.cookie_lifetime', 0);
+      ini_set('session.gc_maxlifetime', 3600); //Définit la durée de vie maximale de la session en secondes (3600 secondes = 1 heure). 
 
-      ini_set('session.use_only_cookies', 1);
+      ini_set('session.cookie_lifetime', 0); // Définit la durée de vie du cookie de session. Une valeur de 0 signifie que le cookie expire à la fin de la session du navigateur.
 
-      ini_set('session.cookie_secure', 1);
+      ini_set('session.use_only_cookies', 1); //Configure PHP pour utiliser uniquement les cookies pour stocker les identifiants de session.
 
-      ini_set('session.cookie_httponly', 1);
-      session_start();
+      ini_set('session.cookie_secure', 1); //Configure le cookie de session pour être envoyé uniquement sur une connexion sécurisée (HTTPS).
+
+      ini_set('session.cookie_httponly', 1); // Configure le cookie de session pour être accessible uniquement via le protocole HTTP.
+      session_start(); // Démarre la session PHP. Cela permet d'utiliser les fonctionnalités de session, telles que le stockage des données utilisateur entre les pages.
 
       include('nav.php');
      ?>
@@ -104,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $servername = "localhost";  // Remplacez localhost par l'adresse du serveur MySQL
     $username = "root";  // Remplacez votre_nom_d'utilisateur par votre nom d'utilisateur MySQL
     $password = "";  // Remplacez votre_mot_de_passe par votre mot de passe MySQL
-    $dbname = "projet_web";  // Remplacez nom_de_votre_base_de_données par le nom de votre base de données
+    $dbname = "projet_asi";  // Remplacez nom_de_votre_base_de_données par le nom de votre base de données
 
     try {
         // Connexion à la base de données avec PDO
@@ -125,15 +127,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Vérifier le mot de passe
-        if (password_verify($motdepasse, $user['motdepasse'])) {
+        if ($motdepasse== $user['motdepasse']) {
+          echo  $user['motdepasse'];
             // Authentification réussie, enregistrer les informations de l'utilisateur dans la session
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['email'] = $user['email'];
             // Rediriger l'utilisateur vers la page de profil ou toute autre page souhaitée
             header("Location: index.php");
             exit;
         } else {
             echo "Mot de passe incorrect.";
+            echo '<br>';
+            echo $motdepasse;
+            echo '<br>';
+            echo  $user['motdepasse'];
             exit;
         }
     } catch(PDOException $e) {

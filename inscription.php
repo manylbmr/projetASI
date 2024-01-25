@@ -130,7 +130,7 @@ if (strlen($motdepasse) < 6) {
 }
 
 // Hacher le mot de passe
-$motdepasse_hache = password_hash($motdepasse, PASSWORD_DEFAULT);
+
 
 
 
@@ -138,7 +138,7 @@ $motdepasse_hache = password_hash($motdepasse, PASSWORD_DEFAULT);
 $servername = "localhost"; 
 $username = "root";  
 $password = "";  
-$dbname = "projet_web";  
+$dbname = "projet_asi";  
 
 try {
     // Connexion à la base de données 
@@ -164,7 +164,7 @@ try {
     $stmt->bindParam(':nom', $nom);
     $stmt->bindParam(':prenom', $prenom);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':motdepasse', $motdepasse_hache); // Utiliser le mot de passe haché
+    $stmt->bindParam(':motdepasse', $motdepasse); 
     $stmt->bindParam(':numero', $numero);
    
     

@@ -7,7 +7,7 @@
   <meta name="description" content="site de vente de livres">
   <meta name="keywords" content="vente de livres">
   <link rel="shortcut icon" href="images/livre1.jpg" type="image/x-icon">
-  <title>Accueil | FahemBooks</title>
+  <title>Accueil | MoussaInc</title>
   <link rel="stylesheet" href="css/nav.css" />
   <link rel="stylesheet" href="css/footer.css" />
 </head>
@@ -19,15 +19,15 @@
   ?>
   <main>
     <section>
-      <h2>Livres à la une</h2>
-      <p>Voici les derniers livres ajoutés à notre site :</p>
+      <h2>Meubles à la une</h2>
+      <p>Voici les derniers meubles ajoutés à notre site :</p>
       <ul class="amazon">
         <?php
        
         $servername = "localhost";  
         $username = "root"; 
         $password = "";  
-        $dbname = "projet_web"; 
+        $dbname = "projet_asi"; 
 
         try {
             // Connexion à la base de données avec PDO
@@ -36,50 +36,42 @@
             // Configurer PDO pour afficher les erreurs SQL
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Récupérer les livres de la base de données
-            $stmt = $conn->query("SELECT * FROM livre2 ORDER BY id DESC");
-            $livres = $stmt->fetchAll();
+            // Récupérer les meubles de la base de données
+            $stmt = $conn->query("SELECT * FROM meuble ORDER BY id DESC");
+            $meuble = $stmt->fetchAll();
 
 
 
 
-            // Afficher les livres dans la balise <ul><li>
-            foreach ($livres as $livre) {
+            // Afficher les meubles dans la balise <ul><li>
+            foreach ($meuble as $meuble) {
                 echo '<li>';
-                echo '<img src="' . $livre['photo'] . '" height="400" width="310">';
-                echo '<p> Titre : ' . $livre['titre'] . '<br> Publié par ' . $livre['auteur'] . '<br>Catégorie : ' . $livre['categorie'] . '<br>' . $livre['description'] .  '<br>Prix: ' . $livre['prix'] . ' DA <br> Vendu par Nassim, numéro : 055656868</p>';
+                echo '<img src="' . $meuble['image'] . '" height="400" width="310">';
+                echo '<p> nom : ' . $meuble['nom'] . '<br>Catégorie : ' . $meuble['categorie'] . '<br>' . $meuble['description'] .  '<br>Prix: ' . $meuble['prix'] .'<br> quantité:'. $meuble['quantité'] .'<br>';
                 
                 // Vérifier si l'utilisateur est connecté
                 if (isset($_SESSION['user_id'])) {
-                    // Bouton "Ajouter aux favoris" avec un formulaire pour chaque livre
+                    // Bouton "Ajouter aux favoris" avec un formulaire pour chaque meuble
                     echo '<form action="index.php" method="POST">';
-                    echo '<input type="hidden" name="livre_id" value="' . $livre['id'] . '">';
-                    echo '<button type="submit" name="ajouter_favori">Ajouter aux favoris</button>';
+                    echo '<input type="hidden" name="meuble_id" value="' . $meuble['id'] . '">';
+                    echo '<button type="submit" name="ajouter_panier">Ajouter au panier</button>';
                     echo '</form>';
 
-                    // Vérifier si le formulaire a été soumis pour ajouter le livre aux favoris
-                    if (isset($_POST['ajouter_favori']) && $_POST['livre_id'] == $livre['id']) {
-    $livre_id = $_POST['livre_id'];
+                    // Vérifier si le formulaire a été soumis pour ajouter le meuble aux favoris
+                    if (isset($_POST['ajouter_panier']) && $_POST['meuble_id'] == $meuble['id']) {
+    $meuble_id = $_POST['meuble_id'];
     $user_id = $_SESSION['user_id'];
+    
 
-    // Vérifier si le livre n'est pas déjà ajouté aux favoris par cet utilisateur
-    $checkStmt = $conn->prepare("SELECT COUNT(*) FROM favoris WHERE user_id = :user_id AND livre_id = :livre_id");
-    $checkStmt->bindParam(':user_id', $user_id);
-    $checkStmt->bindParam(':livre_id', $livre_id);
-    $checkStmt->execute();
-    $count = $checkStmt->fetchColumn();
-
-    if ($count == 0) {
-        // Insérer le livre dans la table "favoris"
-        $insertStmt = $conn->prepare("INSERT INTO favoris (user_id, livre_id) VALUES (:user_id, :livre_id)");
+   
+        // Insérer le livre dans la table "panier"
+        $insertStmt = $conn->prepare("INSERT INTO panier (id_user, id_meuble) VALUES (:user_id, :meuble_id)");
         $insertStmt->bindParam(':user_id', $user_id);
-        $insertStmt->bindParam(':livre_id', $livre_id);
+        $insertStmt->bindParam(':meuble_id', $meuble_id);
         $insertStmt->execute();
 
-        echo '<p>Livre ajouté aux favoris !</p>';
-    } else {
-        echo '<p>Ce livre est déjà dans vos favoris.</p>';
-    }
+        echo '<p>meuble ajouté au panier !</p>';
+    
 }
                 } else {
                     // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté

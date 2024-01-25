@@ -20,8 +20,8 @@
   
   <main>
     <section>
-      <h2>Liste de mes livres favoris</h2>
-      <p>Voici la liste de mes livres favoris :</p>
+      <h2>panier de meubles</h2>
+      <p>voici votre panier :</p>
       <ul>
         <?php
         // Vérifier si l'utilisateur est connecté
@@ -35,7 +35,7 @@
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "projet_web";
+        $dbname = "projet_asi";
 
         try {
           // Connexion à la base de données avec PDO
@@ -44,37 +44,53 @@
 
           // Vérifier si le formulaire a été soumis
           if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Récupérer l'ID du livre à supprimer
-            $livre_id = $_POST['livre_id'];
+            // Récupérer l'ID du meuble à supprimer
+            $meuble_id = $_POST['meuble_id'];
             $user_id = $_SESSION['user_id'];
 
-            // Supprimer l'entrée correspondante dans la table "favoris"
-            $stmt = $conn->prepare("DELETE FROM favoris WHERE user_id = :user_id AND livre_id = :livre_id");
+            // Supprimer l'entrée correspondante dans la table "panier"
+            $stmt = $conn->prepare("DELETE FROM panier WHERE id_user = :user_id AND id_meuble = :meuble_id");
             $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':livre_id', $livre_id);
+            $stmt->bindParam(':meuble_id', $meuble_id);
             $stmt->execute();
           }
 
           // Récupérer les livres favoris de l'utilisateur connecté
           $user_id = $_SESSION['user_id'];
-          $stmt = $conn->prepare("SELECT livre2.* FROM livre2 INNER JOIN favoris ON livre2.id = favoris.livre_id WHERE favoris.user_id = :user_id");
+          $stmt = $conn->prepare("SELECT meuble.* FROM meuble INNER JOIN panier ON meuble.id = panier.id_meuble WHERE panier.id_user = :user_id");
           $stmt->bindParam(':user_id', $user_id);
           $stmt->execute();
-          $livres = $stmt->fetchAll();
+          $meubles = $stmt->fetchAll();
 
           // Afficher les livres dans la balise <ul><li>
-          foreach ($livres as $livre) {
+          foreach ($meubles as $meuble) {
             echo '<li>';
-            echo '<img src="' . $livre['photo'] . '" height="400" width="310">';
-            echo '<p>' . $livre['titre'] . ' publié par ' . $livre['auteur'] . ' dans la catégorie : ' . $livre['categorie'] . '<br>Prix: ' . $livre['prix'] . ' DA</p>';
+            echo '<img src="' . $meuble['image'] . '" height="400" width="310">';
+            echo '<p>' . $meuble['nom'] . '<br>catégorie : ' . $meuble['categorie'] . '<br>description: '.$meuble['description'] .  '<br>Prix: ' . $meuble['prix'] .'<br> quantité:'. $meuble['quantité'] .'<br>';
             echo '<form action="favori.php" method="POST">';
-            echo '<input type="hidden" name="livre_id" value="' . $livre['id'] . '">';
-            echo '<button type="submit">Supprimer des favoris</button>';
+            echo '<input type="hidden" name="meuble_id" value="' . $meuble['id'] . '">';
+            echo '<button type="submit">retirer du panier</button>';
             echo '</form>';
             echo '</li>';
+
           }
+
+            
+
+
+          echo '<form action="commande.php" method="POST">';
+          echo '<input type="hidden" name="user_id" value="' . $user_id . '">';
+          echo '<button type="submit">valider le panier</button>';
+          echo '</form>';
+
+
+
+
+
+
+          
         } catch(PDOException $e) {
-          echo "Erreur lors de la récupération des livres favoris : " . $e->getMessage();
+          echo "Erreur lors de la récupération des meubles du panier : " . $e->getMessage();
         }
 
         // Fermer la connexion à la base de données
@@ -85,7 +101,7 @@
   </main>
   
   <footer>
-    <p>FahemBooks &copy; 2023 - Tous droits réservés</p>
+    <p>MoussaInc &copy; 2023 - Tous droits réservés</p>
   </footer>
 </body>
 </html>

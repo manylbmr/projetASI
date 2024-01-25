@@ -51,7 +51,7 @@
   </main>
   
   <footer>
-    <p>FahemBooks &copy; 2023 - Tous droits réservés</p>
+    <p>MoussaInc &copy; 2023 - Tous droits réservés</p>
   </footer>
 </body>
 </html>
@@ -67,7 +67,7 @@ if (!isset($_SESSION['email'])) {
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "projet_web";
+$dbname = "projet_asi";
 
 try {
   // Connexion à la base de données en utilisant PDO
